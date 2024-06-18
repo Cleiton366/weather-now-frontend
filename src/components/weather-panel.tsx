@@ -106,7 +106,7 @@ export default function WeatherPanel() {
       <div className="flex max-w-6xl gap-2 overflow-scroll">
         {
           data.forecast.map((forecast, i) => (
-            <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#1E1F24] rounded-[15px] ">
+            <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#34376d] rounded-[15px] ">
               <p className="text-white text-bold">{forecast.hour}</p>
               <img className="w-12" src={forecast.icon} alt="" />
               <p className="text-white text-bold">{forecast.temperature}°</p>

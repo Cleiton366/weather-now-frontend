@@ -79,7 +79,7 @@ export default function CitiesWeather() {
   return (
     <div className="flex px-7 pt-10 pb-2 overflow-scroll gap-5">
       <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
-        <div className="bg-[#1E1F24] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
+        <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
           <img className="w-11" src="./line/animation-ready/partly-cloudy-day-drizzle.svg" alt="" />
         </div>
         <h1 className="font-bold text-[12pt] w-32 mt-2 text-center">World Forecast</h1>
@@ -88,7 +88,7 @@ export default function CitiesWeather() {
       {
         cities.map((city, i) => (
           <div key={i} className="flex flex-col h-40 min-w-40 cursor-pointer items-center justify-center bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
-            <div className="bg-[#1E1F24] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3.5rem]">
+            <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3.5rem]">
               <img className="w-11" src="./line/animation-ready/partly-cloudy-day-drizzle.svg" alt="" />
             </div>
             <h1 className="font-bold text-[14pt]">{city.name}</h1>

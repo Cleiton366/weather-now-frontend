@@ -9,8 +9,8 @@ export default function ForecastPanel() {
 
   function setSwitchStyle(forecastOption: number) {
     if (forecastOption === 8) {
-      return forecast === 8 ? 'flex bg-[#1E1F24] rounded-[15px] w-20 h-10 items-center justify-center mr-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
-    } else return forecast === 3 ? 'flex bg-[#1E1F24] rounded-[15px] w-20 h-10 items-center justify-center ml-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
+      return forecast === 8 ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center mr-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
+    } else return forecast === 3 ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center ml-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
   }
 
   const forecastData = [
@@ -97,7 +97,7 @@ export default function ForecastPanel() {
       <div className="flex flex-col mt-5 gap-2 overflow-scroll">
         {
           forecastData.slice(0, forecast).map((data, i) => (
-            <div key={i} className="flex justify-between items-center p-2 px-10 bg-[#1E1F24] rounded-[1.2rem]">
+            <div key={i} className="flex justify-between items-center p-2 px-10 bg-[#34376d] rounded-[1.2rem]">
               <div className="flex items-center">
                 <img src={data.icon} alt="sun" className="w-12" />
                 <span className="font-bold text-[20pt] ml-5">{data.temperature}°

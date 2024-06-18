@@ -14,7 +14,7 @@ export default function OverviewPanel() {
 
 
   function setSwitchStyle(overviewType: string) {
-    return overview === overviewType ? 'flex bg-[#1E1F24] rounded-[15px] w-20 h-10 items-center justify-center mx-1 text-white md:text-[12pt] border rounded-[25px] border-[#42434e]'
+    return overview === overviewType ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center mx-1 text-white md:text-[12pt] border rounded-[25px] border-[#42434e]'
       : 'md:text-[12pt] mx-3';
   }
 
@@ -75,7 +75,7 @@ export default function OverviewPanel() {
           series={[
             {
               data: chartData,
-              color: '#f3f3f3',
+              color: '#34376d',
             }
           ]}
           grid={{ horizontal: true }}

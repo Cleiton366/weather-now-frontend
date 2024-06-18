@@ -11,8 +11,8 @@ export default function Navbar() {
 
   function setSwitchStyle(temmperatureUnit: string) {
     if (temmperatureUnit === 'F') {
-      return unit === 'F°' ? 'bg-[#1E1F24] rounded-[15px] w-10 text-center text-white mr-1 border border-[#42434e]' : 'mx-3';
-    } else return unit === 'C°' ? 'bg-[#1E1F24] rounded-[15px] w-10 text-center text-white ml-1 border border-[#42434e]' : 'mx-3';
+      return unit === 'F°' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white mr-1 border border-[#42434e]' : 'mx-3';
+    } else return unit === 'C°' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white ml-1 border border-[#42434e]' : 'mx-3';
   }
 
 
