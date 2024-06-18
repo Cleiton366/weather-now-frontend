@@ -87,12 +87,14 @@ export default function Map() {
       <GoogleMaps.APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
         <GoogleMaps.Map
           style={{ width: '100%', height: '100%' }}
-          defaultCenter={{ lat: 22.54992, lng: 0 }}
-          defaultZoom={3}
+          defaultCenter={{ lat: 53.54992, lng: 10.00678 }}
+          defaultZoom={10}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
           styles={styles}
-        />
+        > 
+          <GoogleMaps.Marker position={{lat: 53.54992, lng: 10.00678}} />
+        </GoogleMaps.Map>
       </GoogleMaps.APIProvider>
     </div>
   )
