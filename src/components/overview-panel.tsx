@@ -2,7 +2,16 @@ import { LineChart } from "@mui/x-charts";
 import { useState } from "react";
 
 export default function OverviewPanel() {
+  const data = {
+    weather: [31, 32, 34, 32, 28, 27, 25],
+    humidity: [11, 15, 17, 25, 8, 9, 12],
+    uv: [40, 32, 34, 45, 47, 25, 11],
+    pressure: [15, 20, 35, 32, 28, 27, 11],
+  }
+
   const [overview, setOverview] = useState('weather');
+  const [chartData, setChartData] = useState<number[]>(data.weather);
+
 
   function setSwitchStyle(overviewType: string) {
     return overview === overviewType ? 'flex bg-[#1E1F24] rounded-[15px] w-20 h-10 items-center justify-center mx-1 text-white md:text-[12pt] border rounded-[25px] border-[#42434e]'
@@ -30,16 +39,28 @@ export default function OverviewPanel() {
           className="flex cursor-pointer items-center justify-center h-12 w-fit bg-[#1E1F24] border rounded-[25px] border-[#42434e] text-[#FFFFFF]"
         >
           <div className="flex justify-between items-center">
-            <span className={`${setSwitchStyle('weather')} text-[10pt]`} onClick={() => setOverview('weather')}>
+            <span className={`${setSwitchStyle('weather')} text-[10pt]`} onClick={() => {
+              setOverview('weather')
+              setChartData(data.weather)
+            }}>
               Weather
             </span>
-            <span className={`${setSwitchStyle('humidity')} text-[10pt]`} onClick={() => setOverview('humidity')}>
+            <span className={`${setSwitchStyle('humidity')} text-[10pt]`} onClick={() => {
+              setOverview('humidity')
+              setChartData(data.humidity)
+            }}>
               Humidity
             </span>
-            <span className={`${setSwitchStyle('uv')} text-[10pt]`} onClick={() => setOverview('uv')}>
+            <span className={`${setSwitchStyle('uv')} text-[10pt]`} onClick={() => {
+              setOverview('uv')
+              setChartData(data.uv)
+            }}>
               UV Index
             </span>
-            <span className={`${setSwitchStyle('pressure')} text-[10pt]`} onClick={() => setOverview('pressure')}>
+            <span className={`${setSwitchStyle('pressure')} text-[10pt]`} onClick={() => {
+              setOverview('pressure')
+              setChartData(data.pressure)
+            }}>
               Pressure
             </span>
           </div>
@@ -53,7 +74,7 @@ export default function OverviewPanel() {
           }]}
           series={[
             {
-              data: [31, 32, 34, 32, 28, 27, 25],
+              data: chartData,
               color: '#f3f3f3',
             }
           ]}
