@@ -75,7 +75,7 @@ export default function Settings() {
       title: 'City Deleted',
       description: 'City has been deleted successfully',
       duration: 5000,
-      className: 'bg-[#2E2E38] text-white'
+      className: 'bg-[#1E1F24] text-white'
     });
   }
 
