@@ -1,3 +1,4 @@
+import { AlertDialogButton } from "./alert-dialog-button";
 import { Button } from "./ui/button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
@@ -57,6 +58,15 @@ export default function Settings() {
       country: 'Egypt',
     },
   ]
+
+  const handleLogout = () => {
+    console.log('Logout');
+  }
+
+  const handleDeleteAccount = () => {
+    console.log('Delete Account');
+  }
+
   return (
     <Drawer>
       <DrawerTrigger>
@@ -80,7 +90,7 @@ export default function Settings() {
                   cities.map(city => (
                     <div className="flex w-full justify-between p-5 bg-[#1E1F24] rounded-[1rem]" key={city.id}>
                       <span>{city.name} - {city.country}</span>
-                      <FaRegTrashAlt className="text-red-500" />
+                      <FaRegTrashAlt className="text-red-500 cursor-pointer" />
                     </div>
                   )) : <p className="text-white text-center">No city added yet</p>
               }
@@ -93,8 +103,20 @@ export default function Settings() {
                 <h1 className="font-bold mt-5">User Name</h1>
               </div>
               <div className="flex flex-col gap-2 items-center">
-                <Button className="w-48 text-yellow-50">Logout</Button>
-                <Button className="w-48 text-red-500 border border-red-500">Delete my account</Button>
+                <AlertDialogButton 
+                  buttonText="Logout"
+                  buttonStyle="w-48 text-yellow-50 bg-primary border-2 border-[#42434e]"
+                  buttonAction={handleLogout}
+                  tittle="Logout"
+                  description="Are you sure you want to logout?"
+                />
+                <AlertDialogButton
+                  buttonText="Delete Account"
+                  buttonStyle="w-48 text-red-500 bg-primary border border-red-500"
+                  buttonAction={handleDeleteAccount}
+                  tittle="Delete my account"
+                  description="Are you sure you want to delete your account? This action cannot be undone."
+                />
               </div>
             </div>
           </TabsContent>
