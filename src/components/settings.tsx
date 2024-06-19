@@ -1,11 +1,12 @@
+import { useState } from "react";
 import { AlertDialogButton } from "./alert-dialog-button";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useToast } from "./ui/use-toast";
 
 export default function Settings() {
-
-  const cities = [
+  const [cities, setCities] = useState([
     {
       id: 1,
       name: 'Paris',
@@ -56,7 +57,8 @@ export default function Settings() {
       name: 'Cairo',
       country: 'Egypt',
     },
-  ]
+  ])
+  const { toast } = useToast()
 
   const handleLogout = () => {
     console.log('Logout');
@@ -64,6 +66,17 @@ export default function Settings() {
 
   const handleDeleteAccount = () => {
     console.log('Delete Account');
+  }
+
+  function handleDeleteCity (id: number) {
+    const newCities = cities.filter(city => city.id !== id);
+    setCities(newCities);
+    toast({
+      title: 'City Deleted',
+      description: 'City has been deleted successfully',
+      duration: 5000,
+      className: 'bg-[#2E2E38] text-white'
+    });
   }
 
   return (
@@ -89,7 +102,7 @@ export default function Settings() {
                   cities.map(city => (
                     <div className="flex w-full justify-between p-5 bg-[#1E1F24] rounded-[1rem]" key={city.id}>
                       <span>{city.name} - {city.country}</span>
-                      <FaRegTrashAlt className="text-red-500 cursor-pointer" />
+                      <FaRegTrashAlt onClick={() => handleDeleteCity(city.id)} className="text-red-500 cursor-pointer" />
                     </div>
                   )) : <p className="text-white text-center">No city added yet</p>
               }
