@@ -79,9 +79,9 @@ export default function Settings() {
           </DrawerHeader>
         </div>
         <Tabs defaultValue="cities" className="md:min-w-[500px] h-[30rem]">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="cities">Cities</TabsTrigger>
-            <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-[#1E1F24]">
+            <TabsTrigger className="data-[state=active]:bg-[#34376D] data-[state]:text-white" value="cities">Cities</TabsTrigger>
+            <TabsTrigger className="data-[state=active]:bg-[#34376D] data-[state]:text-white"  value="account">Account</TabsTrigger>
           </TabsList>
           <TabsContent value="cities">
             <div className="flex flex-col h-[25rem] gap-2 mt-5 pt-5 overflow-scroll">
