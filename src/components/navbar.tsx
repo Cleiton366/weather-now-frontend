@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input } from "./ui/input";
-
+import Settings from "./settings";
 
 export default function Navbar() {
   const [unit, setUnit] = useState('C°');
@@ -15,11 +15,10 @@ export default function Navbar() {
     } else return unit === 'C°' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white ml-1 border border-[#42434e]' : 'mx-3';
   }
 
-
   return (
     <div className="flex flex-col md:flex-row pt-5 px-10">
       <div className="flex justify-center md:justify-start">
-        <img src="" alt="" className="bg-red-100 rounded-full w-8 h-8 self-center" />
+        <Settings />
         <div className="ml-5">
           <p className="font-bold text-[10pt]">Hi, User</p>
           <h1 className="font-bold text-[16pt]">{new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</h1>
