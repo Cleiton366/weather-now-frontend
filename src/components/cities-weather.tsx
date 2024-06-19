@@ -109,7 +109,7 @@ export default function CitiesWeather() {
       <Carousel
         plugins={[
           Autoplay({
-            delay: 5000,
+            delay: 10000,
           }),
         ]}>
         <CarouselContent>
