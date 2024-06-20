@@ -4,12 +4,12 @@ export default function ForecastPanel() {
   const [forecast, setForecast] = useState(3);
 
   function handleForecast() {
-    return setForecast(forecast === 3 ? 8 : 3);
+    return setForecast(forecast === 3 ? 7 : 3);
   }
 
   function setSwitchStyle(forecastOption: number) {
-    if (forecastOption === 8) {
-      return forecast === 8 ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center mr-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
+    if (forecastOption === 7) {
+      return forecast === 7 ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center mr-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
     } else return forecast === 3 ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center ml-1 text-white border rounded-[25px] border-[#42434e]' : 'mx-3';
   }
 
@@ -88,8 +88,8 @@ export default function ForecastPanel() {
             <span className={setSwitchStyle(3)}>
               3 days
             </span>
-            <span className={setSwitchStyle(8)}>
-              8 days
+            <span className={setSwitchStyle(7)}>
+              7 days
             </span>
           </div>
         </div>
