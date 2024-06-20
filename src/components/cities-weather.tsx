@@ -87,6 +87,108 @@ export default function CitiesWeather() {
       country: 'Egypt',
       max: 25,
       min: 15,
+    },
+    {
+      name: 'Mexico City',
+      country: 'Mexico',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Buenos Aires',
+      country: 'Argentina',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Lagos',
+      country: 'Nigeria',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Jakarta',
+      country: 'Indonesia',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Lima',
+      country: 'Peru',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Bangkok',
+      country: 'Thailand',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Istanbul',
+      country: 'Turkey',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Nairobi',
+      country: 'Kenya',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Seoul',
+      country: 'South Korea',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Madrid',
+      country: 'Spain',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Berlin',
+      country: 'Germany',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Paris',
+      country: 'France',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'London',
+      country: 'United Kingdom',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'New York',
+      country: 'United States',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Tokyo',
+      country: 'Japan',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Sydney',
+      country: 'Australia',
+      max: 25,
+      min: 15,
+    },
+    {
+      name: 'Cape Town',
+      country: 'South Africa',
+      max: 25,
+      min: 15
     }
   ]
 
@@ -138,7 +240,7 @@ export default function CitiesWeather() {
                           </span>
                         </div>
                       ) :
-                        (<div></div>)
+                        (<div key={k}/>)
                     ))
                   }
                 </div>
