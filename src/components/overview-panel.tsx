@@ -11,18 +11,15 @@ export default function OverviewPanel() {
 
   lastSevenDaysData.forEach((date) => {
     weatherData.push({
-      date: `${date.toLocaleDateString('en-US', { month: 'long' })}
-        ${date.toLocaleDateString('en-US', { day: 'numeric' })}`,
+      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
       temperature: Math.floor(Math.random() * 40),
     });
     humidityData.push({
-      date: `${date.toLocaleDateString('en-US', { month: 'long' })}
-        ${date.toLocaleDateString('en-US', { day: 'numeric' })}`,
+      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
       humidity: Math.floor(Math.random() * 100),
     });
     pressureData.push({
-      date: `${date.toLocaleDateString('en-US', { month: 'long' })}
-        ${date.toLocaleDateString('en-US', { day: 'numeric' })}`,
+      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
       pressure: Math.floor(Math.random() * 100),
     });
   });
