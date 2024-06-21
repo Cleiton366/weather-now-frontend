@@ -97,7 +97,7 @@ export default function ForecastPanel() {
       <div className="flex flex-col mt-5 gap-2 overflow-scroll">
         {
           forecastData.slice(0, forecast).map((data, i) => (
-            <div key={i} className="flex justify-between items-center p-2 px-2 md:px-10 bg-[#34376d] rounded-[1.2rem]">
+            <div key={i} className="flex justify-between items-center md:p-2 px-2 md:px-10 bg-[#34376d] rounded-[1.2rem]">
               <div className="flex items-center">
                 <img src={data.icon} alt="sun" className="w-12" />
                 <span className="font-bold text-[14pt] md:text-[20pt] ml-5">{data.temperature}°
