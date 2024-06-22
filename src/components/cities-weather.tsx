@@ -5,197 +5,22 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { CityDTO } from "@/interfaces/city-dto";
 import Autoplay from "embla-carousel-autoplay"
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-interface city {
-  name: string,
-  country: string,
-  max: number,
-  min: number,
-}
+export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelectedCity: Dispatch<SetStateAction<CityDTO | null | undefined>>}) {
+  const [citiesMatrix, setCitiesMatrix] = useState<CityDTO[][]>([[]]);
+  const { cities, setSelectedCity } = props;
 
-export default function CitiesWeather() {
-  const data: city[] = [
-    {
-      name: 'Berlin',
-      country: 'Germany',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Paris',
-      country: 'France',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'London',
-      country: 'United Kingdom',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'New York',
-      country: 'United States',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Tokyo',
-      country: 'Japan',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Sydney',
-      country: 'Australia',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Cape Town',
-      country: 'South Africa',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Rio de Janeiro',
-      country: 'Brazil',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Moscow',
-      country: 'Russia',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Mumbai',
-      country: 'India',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Beijing',
-      country: 'China',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Cairo',
-      country: 'Egypt',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Mexico City',
-      country: 'Mexico',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Buenos Aires',
-      country: 'Argentina',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Lagos',
-      country: 'Nigeria',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Jakarta',
-      country: 'Indonesia',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Lima',
-      country: 'Peru',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Bangkok',
-      country: 'Thailand',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Istanbul',
-      country: 'Turkey',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Nairobi',
-      country: 'Kenya',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Seoul',
-      country: 'South Korea',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Madrid',
-      country: 'Spain',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Berlin',
-      country: 'Germany',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Paris',
-      country: 'France',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'London',
-      country: 'United Kingdom',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'New York',
-      country: 'United States',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Tokyo',
-      country: 'Japan',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Sydney',
-      country: 'Australia',
-      max: 25,
-      min: 15,
-    },
-    {
-      name: 'Cape Town',
-      country: 'South Africa',
-      max: 25,
-      min: 15
-    }
-  ]
+  useEffect(() => {
+    setCitiesMatrix(divideArrayToMatrix(cities || []));
+  }, [cities]);
 
-  function divideArrayToMatrix(arr: city[], partSize = 9, padValue = null) {
+  function divideArrayToMatrix(cities: CityDTO[], partSize = 9, padValue = null) {
     const matrix = [];
-    for (let i = 0; i < arr.length; i += partSize) {
-      const part = arr.slice(i, i + partSize);
+    for (let i = 0; i < cities.length; i += partSize) {
+      const part = cities.slice(i, i + partSize);
       if (part.length < partSize) {
         part.push(...Array(partSize - part.length).fill(padValue));
       }
@@ -203,8 +28,6 @@ export default function CitiesWeather() {
     }
     return matrix;
   }
-
-  const citiesMatrix = divideArrayToMatrix(data)
 
   return (
     <div className="w-full px-20">
@@ -216,7 +39,7 @@ export default function CitiesWeather() {
         ]}>
         <CarouselContent>
           {
-            citiesMatrix.map((cities, i) => (
+            citiesMatrix.map((citiesRow, i) => (
               <CarouselItem key={i}>
                 <div className="flex px-7 pt-10 pb-2 overflow-scroll gap-3">
                   <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
@@ -227,20 +50,23 @@ export default function CitiesWeather() {
                     <span className="font-bold text-[9pt] mt-8 w-28">Add the cities you are interested in</span>
                   </div>
                   {
-                    cities.map((city, k) => (
+                    citiesRow.map((city, k) => (
                       city ? (
-                        <div key={k} className="flex flex-col h-40 min-w-40 cursor-pointer items-center justify-center bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
+                        <div 
+                          key={k} 
+                          onClick={() => setSelectedCity(city)}
+                          className="flex flex-col h-40 min-w-40 cursor-pointer items-center justify-center bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
                           <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3.5rem]">
                             <img className="w-11" src="./line/animation-ready/partly-cloudy-day-drizzle.svg" alt="" />
                           </div>
                           <h1 className="font-bold text-[14pt]">{city.name}</h1>
                           <span className="font-bold text-[9pt]">{city.country}</span>
-                          <span className="font-bold text-[16pt] mt-5">{city.max}°
-                            <span className="font-bold text-[10pt]"> /{city.min}°</span>
+                          <span className="font-bold text-[16pt] mt-5">{city.weather.current.temp.toFixed(0)}°
+                            <span className="font-bold text-[10pt]"> /{city.weather.daily[0].temp.min.toFixed(0)}°</span>
                           </span>
                         </div>
                       ) :
-                        (<div key={k}/>)
+                        (<div key={k} />)
                     ))
                   }
                 </div>
