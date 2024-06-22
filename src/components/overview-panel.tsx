@@ -1,34 +1,34 @@
+import { CityDTO } from '@/interfaces/city-dto';
+import GetNextEightDays from '@/util/get-next-eight-days';
 import { LineChart } from '@tremor/react';
 import { useState } from "react";
 
-export default function OverviewPanel() {
-
-  const lastSevenDaysData = lastSevenDays();
-  lastSevenDaysData.reverse();
+export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
+  const { selectedCity } = props;
+  const forecastDays = GetNextEightDays({ day: 'numeric', month: 'short' });
   const weatherData: object[] | (() => object[]) = [];
   const humidityData: object[] | (() => object[]) = [];
   const pressureData: object[] | (() => object[]) = [];
-
-  lastSevenDaysData.forEach((date) => {
-    weatherData.push({
-      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
-      temperature: Math.floor(Math.random() * 40),
-    });
-    humidityData.push({
-      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
-      humidity: Math.floor(Math.random() * 100),
-    });
-    pressureData.push({
-      date: date.toLocaleDateString('en-US', { day: 'numeric', month: 'numeric' }),
-      pressure: Math.floor(Math.random() * 100),
-    });
-  });
-
   const [overview, setOverview] = useState({
     name: 'temperature',
     scale: '°',
   });
   const [chartData, setChartData] = useState<object[]>(weatherData);
+
+  selectedCity?.weather.daily.map((weather, i) => {
+    weatherData.push({
+      date: forecastDays[i],
+      temperature: weather.temp.day,
+    });
+    humidityData.push({
+      date: forecastDays[i],
+      humidity: weather.humidity,
+    });
+    pressureData.push({
+      date: forecastDays[i],      
+      pressure: weather.pressure,
+    });
+  });
 
   const customTooltip = (props: any) => {
     const { payload, active } = props;
@@ -51,19 +51,6 @@ export default function OverviewPanel() {
   function setSwitchStyle(overviewType: string) {
     return overview.name === overviewType ? 'flex bg-[#34376d] rounded-[15px] w-20 h-10 items-center justify-center mx-1 text-white md:text-[12pt] border rounded-[25px] border-[#42434e]'
       : 'md:text-[12pt] mx-3';
-  }
-
-  function lastSevenDays() {
-    const today = new Date();
-    const lastSevenDays = [];
-
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(today.getDate() - i);
-      lastSevenDays.push(date);
-    }
-
-    return lastSevenDays;
   }
 
   const dataFormatter = (number: number) =>
