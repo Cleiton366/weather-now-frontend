@@ -1,6 +1,17 @@
+import { CityDTO } from '@/interfaces/city-dto';
 import * as GoogleMaps from '@vis.gl/react-google-maps';
+import { useEffect, useState } from 'react';
 
-export default function Map() {
+export default function Map(props: { selectedCity: CityDTO | null }) {
+  const [defaultCenter, setDefaultCenter] = useState({ lat: 0, lng: 0 });
+  const { selectedCity } = props;
+  
+  useEffect(() => {
+    if (selectedCity) {
+      setDefaultCenter({ lat: selectedCity.lat, lng: selectedCity.lon });
+    }
+  }, [selectedCity]);
+  
   const styles = [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -84,18 +95,20 @@ export default function Map() {
 
   return (
     <div className="h-64 min-w-44 bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]] overflow-hidden">
-      <GoogleMaps.APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
-        <GoogleMaps.Map
-          style={{ width: '100%', height: '100%' }}
-          defaultCenter={{ lat: 53.54992, lng: 10.00678 }}
-          defaultZoom={10}
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-          styles={styles}
-        > 
-          <GoogleMaps.Marker position={{lat: 53.54992, lng: 10.00678}} />
-        </GoogleMaps.Map>
-      </GoogleMaps.APIProvider>
+      {
+        <GoogleMaps.APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
+          <GoogleMaps.Map
+            style={{ width: '100%', height: '100%' }}
+            defaultCenter={defaultCenter}
+            defaultZoom={13}
+            gestureHandling={'greedy'}
+            disableDefaultUI={true}
+            styles={styles}
+          >
+            <GoogleMaps.Marker position={defaultCenter} />
+          </GoogleMaps.Map>
+        </GoogleMaps.APIProvider>
+      }
     </div>
   )
 }
