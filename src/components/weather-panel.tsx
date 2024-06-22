@@ -1,5 +1,8 @@
+import { CityDTO } from "@/interfaces/city-dto"
+import TimestampUnixToString from "@/util/timestamp-unix-to-string";
 
-export default function WeatherPanel() {
+export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
+  const { selectedCity } = props;
   const data = {
     city: 'Berlin',
     country: 'Germany',
@@ -79,23 +82,23 @@ export default function WeatherPanel() {
         <div className="flex flex-grow items-center md:justify-evenly">
           <div className="flex flex-col flex-grow md:flex-row md:justify-around">
             <div>
-              <h1 className="font-bold text-[18pt] md:text-[28pt] overflow-hidden ">{data.city}</h1>
-              <p className="font-bold text-[9pt] md:text-[11pt] overflow-hidden">{data.country}</p>
+              <h1 className="font-bold text-[18pt] md:text-[28pt] overflow-hidden ">{selectedCity?.name}</h1>
+              <p className="font-bold text-[9pt] md:text-[11pt] overflow-hidden">{selectedCity?.country}</p>
             </div>
             <div>
-              <h1 className="font-bold text-[18pt] md:text-[28pt]">{data.temperature}°</h1>
+              <h1 className="font-bold text-[18pt] md:text-[28pt]">{selectedCity?.weather.current.temp.toFixed(0)}°</h1>
               <p className="font-bold text-[9pt] md:text-[11pt]">Temperature</p>
             </div>
           </div>
           <div className="flex flex-col flex-grow md:flex-row md:justify-around">
             <div>
-              <h1 className="font-bold text-[18pt] md:text-[28pt]">{data.humidity}
+              <h1 className="font-bold text-[18pt] md:text-[28pt]">{selectedCity?.weather.current.humidity.toFixed(0)}
                 <span className="font-bold text-[11pt]">%</span>
               </h1>
               <p className="font-bold text-[9pt] md:text-[11pt]">Humidity</p>
             </div>
             <div>
-              <h1 className="font-bold text-[18pt] md:text-[28pt]">{data.wind}
+              <h1 className="font-bold text-[18pt] md:text-[28pt]">{selectedCity?.weather.current.wind_speed.toFixed(0)}
                 <span className="font-bold text-[11pt]">km/h</span>
               </h1>
               <p className="font-bold text-[9pt] md:text-[11pt]">Wind</p>
@@ -105,11 +108,11 @@ export default function WeatherPanel() {
       </div>
       <div className="flex max-w-6xl gap-2 overflow-scroll">
         {
-          data.forecast.map((forecast, i) => (
+          selectedCity?.weather.hourly.slice(0,12).map((forecast, i) => (
             <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#34376d] rounded-[15px] ">
-              <p className="text-white text-bold">{forecast.hour}</p>
-              <img className="w-12" src={forecast.icon} alt="" />
-              <p className="text-white text-bold">{forecast.temperature}°</p>
+              <p className="text-white text-bold">{TimestampUnixToString(forecast.dt)}</p>
+              <img className="w-12" src={data.icon} alt="" />
+              <p className="text-white text-bold">{forecast.temp.toFixed(0)}°</p>
             </div>
           ))
         }
