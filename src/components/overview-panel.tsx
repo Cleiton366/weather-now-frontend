@@ -1,7 +1,7 @@
 import { CityDTO } from '@/interfaces/city-dto';
 import GetNextEightDays from '@/util/get-next-eight-days';
 import { LineChart } from '@tremor/react';
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
