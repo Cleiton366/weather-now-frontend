@@ -1,7 +1,7 @@
 import { CityDTO } from '@/interfaces/city-dto';
 import GetNextEightDays from '@/util/get-next-eight-days';
 import { LineChart } from '@tremor/react';
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
@@ -15,20 +15,27 @@ export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
   });
   const [chartData, setChartData] = useState<object[]>(weatherData);
 
-  selectedCity?.weather.daily.map((weather, i) => {
-    weatherData.push({
-      date: forecastDays[i],
-      temperature: weather.temp.day,
+  useEffect(() => {
+    selectedCity?.weather.daily.map((weather, i) => {
+      weatherData.push({
+        date: forecastDays[i],
+        temperature: weather.temp.day,
+      });
+      humidityData.push({
+        date: forecastDays[i],
+        humidity: weather.humidity,
+      });
+      pressureData.push({
+        date: forecastDays[i],      
+        pressure: weather.pressure,
+      });
     });
-    humidityData.push({
-      date: forecastDays[i],
-      humidity: weather.humidity,
+    setOverview({
+      name: 'temperature',
+      scale: '°',
     });
-    pressureData.push({
-      date: forecastDays[i],      
-      pressure: weather.pressure,
-    });
-  });
+    setChartData(weatherData);
+  }, [selectedCity]);
 
   const customTooltip = (props: any) => {
     const { payload, active } = props;
