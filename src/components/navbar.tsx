@@ -96,7 +96,7 @@ export default function Navbar(props: {
   return (
     <div className="flex flex-col md:flex-row pt-5 px-10">
       <div className="flex justify-center md:justify-start">
-        <Settings cities={cities || []} setCities={setCities} />
+        <Settings cities={cities || []} setCities={setCities} handleGetCitiesWeather={handleGetCitiesWeather}/>
         <div className="ml-5">
           <p className="font-bold text-[10pt]">Hi, {user?.name}</p>
           <h1 className="font-bold text-[16pt]">{new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</h1>

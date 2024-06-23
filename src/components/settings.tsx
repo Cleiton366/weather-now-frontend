@@ -10,17 +10,20 @@ import { CityServices } from "@/services/city-services";
 import { useUser } from "@/contexts/user-context";
 import { CityDTO } from "@/interfaces/city-dto";
 
-export default function Settings(props: { cities: CityDTO[] | [], setCities: Dispatch<SetStateAction<[] | CityDTO[] | undefined>> }) {
+export default function Settings(props: {
+  cities: CityDTO[] | [],
+  setCities: Dispatch<SetStateAction<[] | CityDTO[] | undefined>>
+  handleGetCitiesWeather: () => Promise<void>
+}) {
   const { toast } = useToast();
   const { user } = useUser();
+  const { cities, setCities, handleGetCitiesWeather } = props;
   const router = useRouter();
-  const cities = props.cities;
   const userServices = new UserServices();
   const cityServices = new CityServices();
 
   const handleLogout = async () => {
     try {
-      await userServices.logout();
       router.push('/');
     } catch (error) {
       toast({
@@ -50,7 +53,7 @@ export default function Settings(props: { cities: CityDTO[] | [], setCities: Dis
     try {
       await cityServices.deleteCity(id);
       const newCities = cities?.filter(city => city.id !== id);
-      props.setCities(newCities);
+      newCities.length > 0 ? setCities(newCities) : await handleGetCitiesWeather();
       toast({
         title: 'City Deleted',
         description: 'City has been deleted successfully',
