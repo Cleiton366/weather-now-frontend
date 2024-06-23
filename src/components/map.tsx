@@ -99,7 +99,7 @@ export default function Map(props: { selectedCity: CityDTO | null }) {
         <GoogleMaps.APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
           <GoogleMaps.Map
             style={{ width: '100%', height: '100%' }}
-            defaultCenter={defaultCenter}
+            center={defaultCenter}
             defaultZoom={13}
             gestureHandling={'greedy'}
             disableDefaultUI={true}
