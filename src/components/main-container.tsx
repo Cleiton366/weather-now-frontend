@@ -13,13 +13,21 @@ export default function MainContainer() {
   const { user } = useUser();
   const [cities, setCities] = useState<CityDTO[] | []>();
   const [selectedCity, setSelectedCity] = useState<CityDTO | null>();
+  const [userUnit, setUserUnit] = useState<string>();
   const cityServices = new CityServices();
 
   useEffect(() => {
-    if (user && !cities) {
+    if (user && !cities) {      
       handleGetCitiesWeather();
+      setUserUnit(user.unit);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (userUnit) {
+      handleGetCitiesWeather();
+    }
+  }, [userUnit]);
 
   const handleGetCitiesWeather = async () => {
     if (user) {
@@ -33,7 +41,7 @@ export default function MainContainer() {
   return (
     cities && selectedCity &&
     <main className="flex min-h-screen flex-col">
-      <Navbar cities={cities || []} setCities={setCities} />
+      <Navbar cities={cities || []} setCities={setCities} userUnit={userUnit || null} setUserUnit={setUserUnit} />
       <div className="flex flex-col lg:flex-row w-full px-5 pt-3">
         <div className="grid flex-grow p-2 gap-5 max-w-6xl">
           <WeatherPanel selectedCity={selectedCity || null} />

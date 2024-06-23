@@ -6,15 +6,50 @@ import { CityServices } from "@/services/city-services";
 import City from "@/interfaces/city";
 import { toast } from "./ui/use-toast";
 import { CityDTO } from "@/interfaces/city-dto";
+import { UserServices } from "@/services/user-services";
 
-export default function Navbar(props: { cities: CityDTO[] | [], setCities: Dispatch<SetStateAction<[] | CityDTO[] | undefined>> }) {
-  const cities = props.cities;
-  const [unit, setUnit] = useState('C°');
+export default function Navbar(props: {
+  cities: CityDTO[] | [],
+  setCities: Dispatch<SetStateAction<[] | CityDTO[] | undefined>>,
+  userUnit: string | null,
+  setUserUnit: Dispatch<SetStateAction<string | undefined>>
+}) {
+  const {
+    cities,
+    setCities,
+    userUnit,
+    setUserUnit
+  } = props;
   const { user } = useUser();
   const cityServices = new CityServices();
+  const userServices = new UserServices();
 
-  function handleUnitSystem() {
-    setUnit(unit === 'C°' ? 'F°' : 'C°');
+  async function handleUnitSystem() {
+    try {
+      const updatedUser = await userServices.updateUserUnit(user?.id || '', userUnit === 'metric' ? 'imperial' : 'metric');
+      if (updatedUser) {
+        setUserUnit(userUnit === 'metric' ? 'imperial' : 'metric');
+        
+        if(typeof window !== 'undefined') {
+          localStorage.removeItem('user');
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
+        
+        toast({
+          title: 'Success',
+          description: 'Unit system updated successfully',
+          duration: 5000,
+          className: 'bg-[#1E1F24] text-white'
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'An error occurred while trying to update unit system',
+        duration: 5000,
+        className: 'bg-[#1E1F24] text-white'
+      });
+    }
   }
 
   const handleAddCity = async (city: string) => {
@@ -29,7 +64,7 @@ export default function Navbar(props: { cities: CityDTO[] | [], setCities: Dispa
         const newCities: CityDTO[] = cities || [];
 
         newCities.push(cityData[0]);
-        props.setCities(newCities);
+        setCities(newCities);
 
         toast({
           title: 'Success',
@@ -56,15 +91,15 @@ export default function Navbar(props: { cities: CityDTO[] | [], setCities: Dispa
   };
 
   function setSwitchStyle(temmperatureUnit: string) {
-    if (temmperatureUnit === 'F') {
-      return unit === 'F°' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white mr-1 border border-[#42434e]' : 'mx-3';
-    } else return unit === 'C°' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white ml-1 border border-[#42434e]' : 'mx-3';
+    if (temmperatureUnit === 'imperial') {
+      return userUnit === 'imperial' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white mr-1 border border-[#42434e]' : 'mx-3';
+    } else return userUnit === 'metric' ? 'bg-[#34376d] rounded-[15px] w-10 text-center text-white ml-1 border border-[#42434e]' : 'mx-3';
   }
 
   return (
     <div className="flex flex-col md:flex-row pt-5 px-10">
       <div className="flex justify-center md:justify-start">
-        <Settings cities={cities || []} setCities={props.setCities} />
+        <Settings cities={cities || []} setCities={setCities} />
         <div className="ml-5">
           <p className="font-bold text-[10pt]">Hi, {user?.name}</p>
           <h1 className="font-bold text-[16pt]">{new Date().toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</h1>
@@ -77,10 +112,10 @@ export default function Navbar(props: { cities: CityDTO[] | [], setCities: Dispa
           onClick={handleUnitSystem}
         >
           <div className="flex justify-between">
-            <span className={setSwitchStyle('C')}>
+            <span className={setSwitchStyle('metric')}>
               C°
             </span>
-            <span className={setSwitchStyle('F')}>
+            <span className={setSwitchStyle('imperial')}>
               F°
             </span>
           </div>

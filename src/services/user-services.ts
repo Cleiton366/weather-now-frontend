@@ -1,3 +1,4 @@
+import User from "@/interfaces/user";
 
 export class UserServices {
   async deleteUser(id: string) : Promise<void> {
@@ -16,5 +17,16 @@ export class UserServices {
         'Content-Type': 'application/json',
       },
     });
+  }
+
+  async updateUserUnit(id: string, unit: string) : Promise<User> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/update-unit/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ unit }),
+    });
+    return res.json();
   }
 }
