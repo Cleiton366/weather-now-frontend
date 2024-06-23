@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
   const forecastDays = GetNextEightDays({ day: 'numeric', month: 'short' });
-  const weatherData: object[] | (() => object[]) = [];
-  const humidityData: object[] | (() => object[]) = [];
-  const pressureData: object[] | (() => object[]) = [];
+  const [weatherData, setWeatherData] = useState<object[]>([]);
+  const [humidityData, setHumidityData] = useState<object[]>([]);
+  const [pressureData, setPressureData] = useState<object[]>([]);
   const [overview, setOverview] = useState({
     name: 'temperature',
     scale: '°',
@@ -16,20 +16,27 @@ export default function OverviewPanel(props: { selectedCity: CityDTO | null }) {
   const [chartData, setChartData] = useState<object[]>(weatherData);
 
   useEffect(() => {
+    var weatherr : object[] = [];
+    var humidity : object[] = [];
+    var pressure : object[] = [];
     selectedCity?.weather.daily.map((weather, i) => {
-      weatherData.push({
+      weatherr.push({
         date: forecastDays[i],
         temperature: weather.temp.day,
       });
-      humidityData.push({
+      humidity.push({
         date: forecastDays[i],
         humidity: weather.humidity,
       });
-      pressureData.push({
-        date: forecastDays[i],      
+      pressure.push({
+        date: forecastDays[i],
         pressure: weather.pressure,
       });
     });
+
+    setWeatherData(weatherr);
+    setHumidityData(humidity);
+    setPressureData(pressure);
     setOverview({
       name: 'temperature',
       scale: '°',
