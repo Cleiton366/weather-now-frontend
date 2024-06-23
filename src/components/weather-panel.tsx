@@ -78,7 +78,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
   return (
     <div className="h-64 min-w-44 px-5 bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
       <div className="flex">
-        <img className="w-32" src={data.icon} alt="" />
+        <img className="w-32" src={`./fill/animation-ready/${selectedCity?.weather.current.weather[0].icon}.svg`} alt="" />
         <div className="flex flex-grow items-center md:justify-evenly">
           <div className="flex flex-col flex-grow md:flex-row md:justify-around">
             <div>
@@ -111,7 +111,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
           selectedCity?.weather.hourly.slice(0,12).map((forecast, i) => (
             <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#34376d] rounded-[15px] ">
               <p className="text-white text-bold">{TimestampUnixToString(forecast.dt)}</p>
-              <img className="w-12" src={data.icon} alt="" />
+              <img className="w-12" src={`./fill/animation-ready/${forecast.weather[0].icon}.svg`} alt="" />
               <p className="text-white text-bold">{forecast.temp.toFixed(0)}°</p>
             </div>
           ))

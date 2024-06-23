@@ -44,7 +44,7 @@ export default function ForecastPanel(props: { selectedCity: CityDTO | null }) {
           selectedCity?.weather.daily.slice(0, forecast).map((weather, i) => (
             <div key={i} className="flex justify-between items-center md:p-2 px-2 md:px-10 bg-[#34376d] rounded-[1.2rem]">
               <div className="flex items-center">
-                <img src='./line/animation-ready/clear-night.svg' alt="sun" className="w-12" />
+                <img src={`./line/animation-ready/${weather.weather[0].icon}.svg`} alt="sun" className="w-12" />
                 <span className="font-bold text-[14pt] md:text-[20pt] ml-5">{weather.temp.day.toFixed(0)}°
                   <span className="font-bold text-[8pt] md:text-[10pt]"> /{weather.temp.min.toFixed(0)}°</span>
                 </span>
