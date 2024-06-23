@@ -12,13 +12,15 @@ export default function Navbar(props: {
   cities: CityDTO[] | [],
   setCities: Dispatch<SetStateAction<[] | CityDTO[] | undefined>>,
   userUnit: string | null,
-  setUserUnit: Dispatch<SetStateAction<string | undefined>>
+  setUserUnit: Dispatch<SetStateAction<string | undefined>>,
+  handleGetCitiesWeather: () => Promise<void>
 }) {
   const {
     cities,
     setCities,
     userUnit,
-    setUserUnit
+    setUserUnit,
+    handleGetCitiesWeather
   } = props;
   const { user } = useUser();
   const cityServices = new CityServices();
@@ -60,12 +62,7 @@ export default function Navbar(props: {
       };
       const newCity = await cityServices.addCity(data);
       if (newCity) {
-        const cityData = await cityServices.getCitiesWeather([newCity]);
-        const newCities: CityDTO[] = cities || [];
-
-        newCities.push(cityData[0]);
-        setCities(newCities);
-
+        await handleGetCitiesWeather();
         toast({
           title: 'Success',
           description: 'City added successfully',

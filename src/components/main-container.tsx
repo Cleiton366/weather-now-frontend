@@ -17,7 +17,7 @@ export default function MainContainer() {
   const cityServices = new CityServices();
 
   useEffect(() => {
-    if (user && !cities) {      
+    if (user && !cities) {
       handleGetCitiesWeather();
       setUserUnit(user.unit);
     }
@@ -41,7 +41,13 @@ export default function MainContainer() {
   return (
     cities && selectedCity &&
     <main className="flex min-h-screen flex-col">
-      <Navbar cities={cities || []} setCities={setCities} userUnit={userUnit || null} setUserUnit={setUserUnit} />
+      <Navbar
+        cities={cities || []}
+        setCities={setCities}
+        userUnit={userUnit || null}
+        setUserUnit={setUserUnit}
+        handleGetCitiesWeather={handleGetCitiesWeather}
+      />
       <div className="flex flex-col lg:flex-row w-full px-5 pt-3">
         <div className="grid flex-grow p-2 gap-5 max-w-6xl">
           <WeatherPanel selectedCity={selectedCity || null} />
@@ -52,7 +58,7 @@ export default function MainContainer() {
           <ForecastPanel selectedCity={selectedCity || null} />
         </div>
       </div>
-      <CitiesWeather cities={cities || []} setSelectedCity={setSelectedCity}/>
+      <CitiesWeather cities={cities || []} setSelectedCity={setSelectedCity} />
     </main>
   )
 }
