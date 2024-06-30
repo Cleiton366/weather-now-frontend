@@ -37,7 +37,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
         </div>
       </div>
       <ScrollArea className="max-w-6xl">
-        <div className="flex gap-2">
+        <div className="flex gap-2 pb-3">
         {
           selectedCity?.weather.hourly.slice(0, 12).map((forecast, i) => (
             <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#34376d] rounded-[15px] ">
