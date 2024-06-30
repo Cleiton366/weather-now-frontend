@@ -40,10 +40,10 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
           }),
         ]}>
         <CarouselContent>
-          {
-            citiesMatrix.map((citiesRow, i) => (
-              <ScrollArea key={i} className="h-full w-full">
-                <CarouselItem>
+          <ScrollArea className="h-full w-full">
+            {
+              citiesMatrix.map((citiesRow, i) => (
+                <CarouselItem key={i} >
                   <div className="flex px-7 pt-10 pb-2 gap-3">
                     <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
                       <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
@@ -74,10 +74,10 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
                     }
                   </div>
                 </CarouselItem>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            ))
-          }
+              ))
+            }
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </CarouselContent>
         <CarouselPrevious className="h-0 w-0 md:h-fit md:w-fit" />
         <CarouselNext className="h-0 w-0 md:h-fit md:w-fit" />
