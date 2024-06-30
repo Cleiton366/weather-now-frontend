@@ -40,8 +40,8 @@ export default function ForecastPanel(props: { selectedCity: CityDTO | null }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col mt-5 gap-2 overflow-scroll">
-        <ScrollArea className="h-full w-full">
+      <ScrollArea className="h-full w-full">
+        <div className="flex flex-col mt-5 gap-2 overflow-scroll">
           {
             selectedCity?.weather.daily.slice(0, forecast).map((weather, i) => (
               <div key={i} className="flex justify-between items-center md:p-2 px-2 md:px-10 bg-[#34376d] rounded-[1.2rem]">
@@ -57,8 +57,8 @@ export default function ForecastPanel(props: { selectedCity: CityDTO | null }) {
               </div>
             ))
           }
-        </ScrollArea>
-      </div>
+        </div>
+      </ScrollArea>
     </div>
   )
 }
