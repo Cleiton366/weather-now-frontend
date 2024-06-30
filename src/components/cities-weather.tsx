@@ -8,7 +8,7 @@ import {
 import { CityDTO } from "@/interfaces/city-dto";
 import Autoplay from "embla-carousel-autoplay"
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelectedCity: Dispatch<SetStateAction<CityDTO | null | undefined>> }) {
   const [citiesMatrix, setCitiesMatrix] = useState<CityDTO[][]>([[]]);
@@ -108,6 +108,7 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
               ))
             }
           </div>
+          <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
     </div>
