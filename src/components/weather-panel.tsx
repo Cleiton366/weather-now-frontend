@@ -6,10 +6,10 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
 
   return (
-    <div className="h-64 min-w-44 px-5 bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
+    <div className="h-64 w-fit md:min-w-44 px-5 bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
       <div className="flex py-3 md:p-0">
         <img className="w-24 md:w-32" src={`./fill/animation-ready/${selectedCity?.weather.current.weather[0].icon}.svg`} alt="" />
-        <div className="flex flex-grow items-center md:justify-evenly">
+        <div className="flex flex-grow items-center justify-center md:justify-evenly">
           <div className="flex flex-col flex-grow md:flex-row md:justify-around">
             <div>
               <h1 className="font-bold text-[18pt] md:text-[28pt] overflow-hidden ">{selectedCity?.name}</h1>
