@@ -1,6 +1,6 @@
 import { CityDTO } from "@/interfaces/city-dto"
 import TimestampUnixToString from "@/util/timestamp-unix-to-string";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
 export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
@@ -36,7 +36,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
           </div>
         </div>
       </div>
-      <ScrollArea className="max-w-6xl gap-2">
+      <ScrollArea className="max-w-6xl">
         <div className="flex gap-2">
         {
           selectedCity?.weather.hourly.slice(0, 12).map((forecast, i) => (
@@ -48,6 +48,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
           ))
         }
         </div>
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
   )
