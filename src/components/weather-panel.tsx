@@ -1,5 +1,6 @@
 import { CityDTO } from "@/interfaces/city-dto"
 import TimestampUnixToString from "@/util/timestamp-unix-to-string";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
   const { selectedCity } = props;
@@ -35,9 +36,9 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
           </div>
         </div>
       </div>
-      <div className="flex max-w-6xl gap-2 overflow-scroll">
+      <ScrollArea className="flex max-w-6xl gap-2">
         {
-          selectedCity?.weather.hourly.slice(0,12).map((forecast, i) => (
+          selectedCity?.weather.hourly.slice(0, 12).map((forecast, i) => (
             <div key={i} className="min-w-20 h-28 p-2 flex flex-col items-center bg-[#34376d] rounded-[15px] ">
               <p className="text-white text-bold">{TimestampUnixToString(forecast.dt)}</p>
               <img className="w-12" src={`./fill/animation-ready/${forecast.weather[0].icon}.svg`} alt="" />
@@ -45,7 +46,7 @@ export default function WeatherPanel(props: { selectedCity: CityDTO | null }) {
             </div>
           ))
         }
-      </div>
+      </ScrollArea>
     </div>
   )
 }
