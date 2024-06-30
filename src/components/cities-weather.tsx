@@ -43,8 +43,7 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
           {
             citiesMatrix.map((citiesRow, i) => (
               <CarouselItem key={i}>
-                <ScrollArea className="h-full w-full">
-                  <div className="flex px-7 pt-10 pb-2 gap-3">
+                  <div className="flex px-7 pt-10 overflow-hidden pb-2 gap-3">
                     <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
                       <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
                         <img className="w-11" src='./line/animation-ready/falling-stars.svg' alt="" />
@@ -73,8 +72,6 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
                       ))
                     }
                   </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
               </CarouselItem>
             ))
           }
