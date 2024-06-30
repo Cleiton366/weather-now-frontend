@@ -8,6 +8,7 @@ import {
 import { CityDTO } from "@/interfaces/city-dto";
 import Autoplay from "embla-carousel-autoplay"
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelectedCity: Dispatch<SetStateAction<CityDTO | null | undefined>> }) {
   const [citiesMatrix, setCitiesMatrix] = useState<CityDTO[][]>([[]]);
@@ -80,32 +81,34 @@ export default function CitiesWeather(props: { cities: CityDTO[] | [], setSelect
       </Carousel>
 
       <div className="h-full w-full md:hidden">
-        <div className="flex pt-10 pb-2 overflow-scroll gap-3">
-          <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
-            <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
-              <img className="w-11" src='./line/animation-ready/falling-stars.svg' alt="" />
-            </div>
-            <h1 className="font-bold text-[12pt] w-32 mt-2 text-center">World Forecast</h1>
-            <span className="font-bold text-[9pt] mt-8 w-28">Add the cities you are interested in</span>
-          </div>
-          {
-            cities.map((city, k) => (
-              <div
-                key={k}
-                onClick={() => setSelectedCity(city)}
-                className="flex flex-col h-40 min-w-40 cursor-pointer items-center justify-center bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
-                <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3.5rem]">
-                  <img className="w-11" src={`./line/animation-ready/${city.weather.current.weather[0].icon}.svg`} alt="" />
-                </div>
-                <h1 className="font-bold text-[14pt]">{city.name}</h1>
-                <span className="font-bold text-[9pt]">{city.country}</span>
-                <span className="font-bold text-[16pt] mt-5">{city.weather.current.temp.toFixed(0)}°
-                  <span className="font-bold text-[10pt]"> /{city.weather.daily[0].temp.min.toFixed(0)}°</span>
-                </span>
+        <ScrollArea className="h-full w-full">
+          <div className="flex pt-10 pb-2 gap-3">
+            <div className="flex flex-col h-40 min-w-40 text-center items-center justify-center border-2 border-dashed rounded-[15px] border-white/40 text-[#FFFFFF]">
+              <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3rem]">
+                <img className="w-11" src='./line/animation-ready/falling-stars.svg' alt="" />
               </div>
-            ))
-          }
-        </div>
+              <h1 className="font-bold text-[12pt] w-32 mt-2 text-center">World Forecast</h1>
+              <span className="font-bold text-[9pt] mt-8 w-28">Add the cities you are interested in</span>
+            </div>
+            {
+              cities.map((city, k) => (
+                <div
+                  key={k}
+                  onClick={() => setSelectedCity(city)}
+                  className="flex flex-col h-40 min-w-40 cursor-pointer items-center justify-center bg-[#2E2E38] border rounded-[15px] border-[#42434e] text-[#FFFFFF]">
+                  <div className="bg-[#34376d] rounded-full border border-[#42434e] text-[#FFFFFF] p-2 mt-[-3.5rem]">
+                    <img className="w-11" src={`./line/animation-ready/${city.weather.current.weather[0].icon}.svg`} alt="" />
+                  </div>
+                  <h1 className="font-bold text-[14pt]">{city.name}</h1>
+                  <span className="font-bold text-[9pt]">{city.country}</span>
+                  <span className="font-bold text-[16pt] mt-5">{city.weather.current.temp.toFixed(0)}°
+                    <span className="font-bold text-[10pt]"> /{city.weather.daily[0].temp.min.toFixed(0)}°</span>
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </ScrollArea>
       </div>
     </div>
   )
